@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# This repo has a video on its readme :p
+
+
+<img src="https://github.com/joenan/React-Redux-Customer-Feedback/blob/main/demo.gif" title="React Redux Customer and Feedback Demo"/>
+
 ## Available Scripts
 
 In the project directory, you can run:
