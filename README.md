@@ -1,5 +1,5 @@
 # React Redux Customer and Feedback Demo
-<img src="https://github.com/joenan/React-Redux-Customer-Feedback/blob/main/demo.gif" title="React Redux Customer and Feedback Demo"/>
+<img src="https://github.com/joenan/React-Redux-Customer-Feedback/blob/main/react-demo.gif" title="React Redux Customer and Feedback Demo"/>
 
 ## Available Scripts
 
