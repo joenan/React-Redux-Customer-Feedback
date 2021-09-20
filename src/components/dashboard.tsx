@@ -37,9 +37,15 @@ const Dashboard = () => {
         setShowAddFeedbackFormState({ showAddFeedbackForm: !showAddFeedbackFormState.showAddFeedbackForm });
     }
 
-    const handleKeyPress = (e) => {
+    const newCustomerHandleKeyPress = (e) => {
+        console.log(e)
         if (e.key === 'Enter') {
             handleSubmit(e);
+        }
+
+        if (e.keyCode === 27) {
+            console.log('escape key pressed');
+            clearCustomerInputAndCloseForm();
         }
     }
 
@@ -56,7 +62,7 @@ const Dashboard = () => {
         }
 
         dispatch({ type: "ADD_CONTACT", payload: data })
-        setName('');
+        clearCustomerInputAndCloseForm();
 
         toast.success("Customer added successfully")
     }
@@ -69,7 +75,7 @@ const Dashboard = () => {
 
     const onSearchFeedbackKeyPress = (event) => {
         let term = event.target.value;
-        setSearchTerm(term);
+        setSearchTerm(term.toLowerCase());
     };
 
     const onAddFeedbackKeyPress = (c) => {
@@ -86,6 +92,11 @@ const Dashboard = () => {
         dispatch({ type: "ADD_COMMENT", payload: feedback })
         setTypedFeedback('');
         setShowAddFeedbackFormState({ showAddFeedbackForm: !showAddFeedbackFormState.showAddFeedbackForm });
+    }
+
+    const clearCustomerInputAndCloseForm = () => {
+        setName('');
+        setShowAddCustomerFormState({ showAddCustomerForm: !showAddCustomerFormState.showAddCustomerForm });
     }
 
 
@@ -149,7 +160,7 @@ const Dashboard = () => {
                                             {showAddCustomerFormState.showAddCustomerForm ?
                                                 <tr>
                                                     <td><i className="fa fa-user-plus"></i></td>
-                                                    <td><input type="text" value={name} onChange={e => setName(e.target.value)} onKeyPress={handleKeyPress} className="form-control form-control-sm border-0 "
+                                                    <td><input type="text" value={name} onChange={e => setName(e.target.value)} onKeyDown={newCustomerHandleKeyPress} className="form-control form-control-sm border-0 "
                                                         style={{ color: "blue" }} placeholder="New Customer" />
                                                     </td>
                                                 </tr>
@@ -208,7 +219,8 @@ const Dashboard = () => {
                                             }
 
                                             {
-                                                selectedCustomer ? customerComments.map((data, id) => (
+                                                selectedCustomer ? customerComments.filter(x => x.feedback.toLowerCase().includes(searchTerm)).map((data, id) => (
+
                                                     <tr key={id} >
                                                         <td> <i className="fa fa-comments"></i></td>
                                                         <td className="text-left small">
@@ -221,6 +233,20 @@ const Dashboard = () => {
                                                         </td>
                                                     </tr>
                                                 ))
+
+                                                    // selectedCustomer ? customerComments.filter(x => x.feedback.toLowerCase().includes(searchTerm)).map(filteredComments => (
+                                                    //     <tr key={filteredComments.id} >
+                                                    //         <td> <i className="fa fa-comments"></i></td>
+                                                    //         <td className="text-left small">
+                                                    //             <Highlighter
+                                                    //                 highlightClassName="App-feedback"
+                                                    //                 searchWords={[searchTerm]}
+                                                    //                 autoEscape={true}
+                                                    //                 textToHighlight={filteredComments.feedback}
+                                                    //             />,
+                                                    //         </td>
+                                                    //     </tr>
+                                                    //   ))
                                                     :
 
                                                     <tr>
